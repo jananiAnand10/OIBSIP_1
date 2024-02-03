@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="C:\Users\Janani Anand\Desktop\calc\cal.css">
+    </head>
+    <body>
+        
+        <div class="grid-container">
+            <p style="text-align:center;font-size:22px;">CALCULATOR</p>
+            <br><div class="result" id="result">0</div>
+            <button class="op-item" onclick="AppendtoResult('*')">x</button>
+            <button class="grid-item" onclick="AppendtoResult('1')">1</button>
+            <button class="grid-item" onclick="AppendtoResult('2')">2</button>
+            <button class="grid-item" onclick="AppendtoResult('3')">3</button>
+            <button class="grid-item" onclick="AppendtoResult('4')">4</button>
+            <button class="op-item"   onclick="AppendtoResult('+')">+</button>
+            <button class="grid-item" onclick="AppendtoResult('5')">5</button>
+            <button class="grid-item" onclick="AppendtoResult('6')">6</button>
+            <button class="grid-item" onclick="AppendtoResult('7')">7</button>
+            <button class="grid-item" onclick="AppendtoResult('8')">8</button>
+            <button class="op-item"   onclick="AppendtoResult('-')">-</button>
+            <button class="grid-item" onclick="AppendtoResult('9')">9</button>
+            <button class="grid-item" onclick="AppendtoResult('0')">0</button>
+            <button class="grid-item" onclick="AppendtoResult('.')">.</button>
+            <button class="grid-item" onclick="AppendtoResult('^')">X<sup><sup>y</sup></sup></button>
+            <button class="op-item"   onclick="AppendtoResult('/')">÷</button>
+            <button class="grid-item" onclick="AppendtoResult('%')">%</button>
+            <button class="grid-item" onclick="AppendtoResult('√(')">√</button>
+            <button class="grid-item" onclick="AppendtoResult('(')">(</button>
+            <button class="grid-item" onclick="AppendtoResult(')')">)</button>
+            <button class="op-item"   onclick="AppendtoResult('-')" ondblclick="AppendtoResult('')">±</button>
+            <button class="ac-item"   onclick="del()">DEL</button>
+            <button class="ac-item"   onclick="clr()">AC</button>
+            
+            <button class="eq-item" onclick="computeResult()">=</button>
+        </div>
+    </div>
+    <script>
+        let finalresult=document.getElementById("result");
+        let expression="";
+        let res_exp="";
+        let sq_found=0;
+
+        function AppendtoResult(value)
+        {
+            if (value=="√(")
+            {
+            expression+="Math.sqrt(";
+            sq_found++;
+            }
+            else if(value=="^")
+            {
+            expression+="**";
+            }
+            else
+            {expression+=value}
+            res_exp+=value;
+            finalresult.textContent=res_exp;
+        }
+        function computeResult()
+        {
+            try
+            {
+            if(sq_found>0 && !expression.includes(')'))
+            {
+                for(let i=0;sq_found>0;i++)
+                {
+                expression+=")";
+                res_exp+=")";
+                sq_found--;
+                 }
+            }
+            res_exp=eval(expression).toString();
+            finalresult.textContent=res_exp;
+            }
+            catch(error)
+            {
+                finalresult.textContent="error..!,Please try again";
+            }
+        }
+        function clr()
+        {
+            finalresult.textContent="0";
+            expression="";
+            res_exp="";
+            sq_found=0;
+        }
+        function del()
+            {
+                if (expression.endsWith("Math.sqrt(")) 
+                {
+                expression = expression.slice(0, -10);
+            } 
+                else
+                {
+                expression=expression.slice(0,expression.length-1);}
+                finalresult.textContent=expression;
+            }
+    </script>
+        </body>
+        </html>
